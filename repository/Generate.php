@@ -3,6 +3,7 @@
 require_once __DIR__. '/GenerateEntity.php';
 require_once __DIR__. '/GenerateInterfaceRepository.php';
 require_once __DIR__. '/GenerateException.php';
+require_once __DIR__. '/GenerateRequests.php';
 require_once __DIR__. '/GenerateRepository.php';
 
 /**
@@ -23,6 +24,11 @@ class Generate
      * @var
      */
     private $repositoryExceptions;
+
+    /**
+     * @var
+     */
+    private $resquests;
     /**
      * @var
      */
@@ -38,9 +44,11 @@ class Generate
      */
     public function __construct(array $request)
     {
+
         $this->className            = ($request['className'] ?? null);
         $this->repositoryClasses    = ($request['repositoryClasses'] ?? null);
         $this->repositoryExceptions = ($request['repositoryExceptions'] ?? null);
+        $this->resquests = ($request['requests'] ?? null);
         $this->fields               = ($request['fields'] ?? null);
 
         $this->path = '../generated/' . ucwords($this->className);
@@ -70,6 +78,15 @@ class Generate
             }
 
             (new GenerateException($this->repositoryExceptions, $this->className, $this->path));
+        }
+
+        if (!empty($this->resquests)) {
+            $this->path = '../generated/' . ucwords($this->className) . '/Requests/'.ucwords($this->className);
+            if (!is_dir($this->path)) {
+                mkdir($this->path, 0777, true);
+            }
+
+            (new GenerateRequests($this->resquests, $this->className, $this->path,$this->fields));
         }
 
     }
