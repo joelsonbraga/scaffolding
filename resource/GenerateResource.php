@@ -2,7 +2,7 @@
 
 
 /**
- * Class GenerateEntity
+ * Class GenerateResource
  */
 class GenerateResource
 {
@@ -25,7 +25,7 @@ class GenerateResource
      * @param string $fields
      * @param string $path
      */
-    public function __construct(string $className, string $path, string $fields)
+    public function __construct(string $className, string $fields, string $path)
     {
         $this->className = ucwords($className);
         $this->fields = explode(',', $fields);
@@ -39,31 +39,31 @@ class GenerateResource
         $midToArray = null;
 
         foreach ($this->fields as $key => $field) {
+
             $field = trim($field);
-
-
             $midToArray .= "'{$field}' => \$this->{$field},\n";
         }
 
-        $toArray = "public function toArray(): array\n{\n 
+        $toArray = "public function toArray(): array\n{
                 return [
-                " . "'data'" . " => [
+                'data' => [
                             {$midToArray}
-                             ]
-                        ];
-                
-        \n}\n\n" . "";
+                          ],
+                       ];
+        \n}\n";
 
         $str = "<?php\n\n";
+
         $str .= "namespace App\Http\Resources\\$this->className;\n\n";
         $str .= "use Illuminate\Http\Resources\Json\ResourceCollection;\n\n";
-        $str .= "class {$this->className}Collection  extends JsonResource\n";
-        $str .= "{\n\n";
+
+        $str .= "class {$this->className}Collection extends JsonResource\n";
+        $str .= "{\n";
         $str .= $toArray;
         $str .= "}\n\n";
         $str .= "?>";
 
-        $fileName = $this->path . '/' . $this->className . 'Resources.php';
+        $fileName = $this->path . '/' . $this->className .'Resources.php';
         $fp = fopen($fileName, 'w');
         fwrite($fp, $str);
         fclose($fp);

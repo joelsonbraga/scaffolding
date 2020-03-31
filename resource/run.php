@@ -1,7 +1,6 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
+require_once '../lib/default.php';
 if (isset($_POST['action']) && $_POST['action'] === 'generate') {
     require_once __DIR__ . '/Generate.php';
 
