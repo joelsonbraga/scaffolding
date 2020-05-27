@@ -125,6 +125,29 @@ ini_set('display_errors', 1);
                 </div>
             </div>
 
+
+
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="repositoryExceptions">Resources</label>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label for="repositoryExceptions-0">
+                            <input type="checkbox" checked name="resources[collection]" id="Resource-0" value="collection">
+                            Collection
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="repositoryExceptions-1">
+                            <input type="checkbox" checked name="resources[resource]" id="Resource-1" value="resource">
+                            Resources
+                        </label>
+                    </div>
+
+
+                </div>
+            </div>
+
             <!-- Textarea -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="fields">Fields</label>
@@ -140,6 +163,7 @@ ini_set('display_errors', 1);
                     <button id="generate" name="generate" class="btn btn-primary">Generate</button>
                 </div>
             </div>
+
 
         </fieldset>
     </form>
