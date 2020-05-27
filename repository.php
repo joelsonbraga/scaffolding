@@ -63,6 +63,37 @@ ini_set('display_errors', 1);
                 </div>
             </div>
 
+
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="repositoryClasses">Requests</label>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label for="repositoryClasses-0">
+                            <input type="checkbox" checked name="requests[store]" id="repositoryClasses-0" value="store">
+                            store
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="repositoryClasses-1">
+                            <input type="checkbox" checked name="requests[index]" id="repositoryClasses-1" value="index">
+                            index
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="repositoryClasses-2">
+                            <input type="checkbox" checked name="requests[update]" id="repositoryClasses-2" value="update">
+                            update
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
             <!-- Multiple Checkboxes -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="repositoryExceptions">Repository Exceptions</label>
