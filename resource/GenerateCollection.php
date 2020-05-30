@@ -43,16 +43,16 @@ class GenerateCollection
             $midToArray .= "'{$field}' => \$item->{$field},\n";
         }
 
-        $toArray = "public function toArray(): array
-        { \n \$collection = \$this->resource->toArray();
-             \$collection['data'] = \$this->collection->map(function (\$item, \$key){
-              return [
-                         {$midToArray}
-                     ];       
-              });
-        return \$collection;
-       }
-       ";
+        $toArray = "public function toArray(): array";
+        $toArray.= "{ \n \$collection = \$this->resource->toArray();";
+        $toArray.= "\$collection['data'] = \$this->collection->map(function (\$item, \$key){";
+        $toArray.= "return [";
+        $toArray.= $midToArray;
+        $toArray.="]";
+        $toArray.="})";
+        $toArray.="return \$collection";
+        $toArray.="}";
+
 
         $str = "<?php\n\n";
         $str .= "namespace App\Http\Resources\\$this->className;\n\n";
@@ -60,17 +60,11 @@ class GenerateCollection
         $str .= "class {$this->className}Collection  extends ResourceCollection\n";
         $str .= "{\n";
         $str .= $toArray;
-        $str .= "}\n\n";
-        $str .= "?>";
+        $str .= "}";
 
         $fileName = $this->path . '/' . $this->className . 'Collection.php';
         $fp = fopen($fileName, 'w');
         fwrite($fp, $str);
         fclose($fp);
-
-        return true;
-
-
     }
-
 }

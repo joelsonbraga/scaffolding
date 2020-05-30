@@ -37,7 +37,8 @@ class Generate
         $this->className = ($request['className'] ?? null);
         $this->fields = ($request['fields'] ?? null);
         $this->resources = ($request['resources'] ?? null);
-        $this->path = './generated/Resource/' . ucwords($this->className);
+
+        $this->path = '../generated/Resource/' . ucwords($this->className);
     }
 
     public function run()
@@ -46,8 +47,13 @@ class Generate
             if (!is_dir($this->path)) {
                 mkdir($this->path, 0777, true);
             }
-            (new GenerateResource($this->className, $this->fields, $this->path));
-            (new GenerateCollection($this->className, $this->fields , $this->path));
+
+            if (isset($this->resources['resource'])) {
+                (new GenerateResource($this->className, $this->fields, $this->path));
+            }
+            if (isset($this->resources['collection'])) {
+                (new GenerateCollection($this->className, $this->fields, $this->path));
+            }
         }
 
     }

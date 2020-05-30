@@ -41,35 +41,26 @@ class GenerateResource
         foreach ($this->fields as $key => $field) {
 
             $field = trim($field);
-            $midToArray .= "'{$field}' => \$this->{$field},\n";
+            $midToArray .= "\t\t\t\t'{$field}' => \$this->{$field},\n";
         }
 
-        $toArray = "public function toArray(): array\n{
-                return [
-                'data' => [
-                            {$midToArray}
-                          ],
-                       ];
-        \n}\n";
+        $toArray = "\tpublic function toArray(): array\n\t{\n";
+        $toArray .= "\t\treturn [\n\t\t\t'data' => [\n{$midToArray}\t\t\t],\n\t\t];\n\t}\n";
 
         $str = "<?php\n\n";
 
         $str .= "namespace App\Http\Resources\\$this->className;\n\n";
-        $str .= "use Illuminate\Http\Resources\Json\ResourceCollection;\n\n";
+        $str .= "use Illuminate\Http\Resources\Json\JsonResource;;\n\n";
 
-        $str .= "class {$this->className}Collection extends JsonResource\n";
+        $str .= "class {$this->className}Resource extends JsonResource\n";
         $str .= "{\n";
         $str .= $toArray;
-        $str .= "}\n\n";
-        $str .= "?>";
+        $str .= "}";
 
         $fileName = $this->path . '/' . $this->className .'Resources.php';
         $fp = fopen($fileName, 'w');
         fwrite($fp, $str);
         fclose($fp);
-
-        return true;
-
     }
 
 }

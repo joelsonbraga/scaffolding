@@ -20,7 +20,7 @@ ini_set('display_errors', 1);
     <div class="alert  alert-success <?php echo isset($_GET['msg'])?null:'d-none'?>" role="alert">
         <?php echo isset($_GET['msg'])? $_GET['msg']:'d-none'?>
     </div>
-    <form class="form-horizontal"  method="post"  action="repository/run.php">
+    <form class="form-horizontal"  method="post"  action="resource/run.php">
         <input type="hidden" name="action" value="generate">
         <fieldset>
 
@@ -36,16 +36,16 @@ ini_set('display_errors', 1);
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="repositoryExceptions">Resources</label>
+                <label class="col-md-4 control-label" for="resourceExceptions">Resources</label>
                 <div class="col-md-4">
                     <div class="checkbox">
-                        <label for="repositoryExceptions-1">
+                        <label for="resourceExceptions-1">
                             <input type="checkbox" checked name="resources[resource]" id="Resource-1" value="resource">
                             Resource
                         </label>
                     </div>
                     <div class="checkbox">
-                        <label for="repositoryExceptions-0">
+                        <label for="resourceExceptions-0">
                             <input type="checkbox" checked name="resources[collection]" id="Resource-0" value="collection">
                             Collection
                         </label>
