@@ -40,18 +40,18 @@ class GenerateCollection
         foreach ($this->fields as $key => $field) {
 
             $field = trim($field);
-            $midToArray .= "'{$field}' => \$item->{$field},\n";
+            $midToArray .= "\t\t\t\t'{$field}' => \$item->{$field},\n";
         }
 
-        $toArray = "public function toArray(): array";
-        $toArray.= "{ \n \$collection = \$this->resource->toArray();";
-        $toArray.= "\$collection['data'] = \$this->collection->map(function (\$item, \$key){";
-        $toArray.= "return [";
+        $toArray = "\tpublic function toArray(): array\n";
+        $toArray.= "\t{\n\t\t\$collection = \$this->resource->toArray();\n";
+        $toArray.= "\t\t\$collection['data'] = \$this->collection->map(function (\$item, \$key) {\n";
+        $toArray.= "\t\t\treturn [\n";
         $toArray.= $midToArray;
-        $toArray.="]";
-        $toArray.="})";
-        $toArray.="return \$collection";
-        $toArray.="}";
+        $toArray.="\t\t\t];\n";
+        $toArray.="\t\t});\n\n";
+        $toArray.="\t\treturn \$collection;\n";
+        $toArray.="\t}\n";
 
 
         $str = "<?php\n\n";
