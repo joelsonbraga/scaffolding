@@ -25,124 +25,108 @@ class GenerateController
      * @param string $fields
      * @param string $path
      */
-    public function __construct(string $className, string $path, string $fields)
+    public function __construct(string $className, string $path, ?string $fields = null)
     {
         $this->className = ucwords($className);
-        $this->fields = explode(',', $fields);
-        $this->path = $path;
+        $this->fields    = explode(',', $fields);
+        $this->path      = $path;
 
         $this->make();
-    }
-
-    public function pluralVariables()
-    {
-        $dictionary = [
-            'ProductBrand' => 'productBrands',
-            'Customer' => 'customers',
-        ];
-
-        $pluralObjectName = $dictionary[$this->className];
-
-        return $pluralObjectName;
     }
 
     public function make()
     {
 
-        $pluralModel = $this->pluralVariables();
+        $pluralModel = $this->className;
 
         $setVaribleFormatedObject = strtolower(substr($this->className, 0, 1)) . substr($this->className, 1);
         $modelParam = strtolower(substr($this->className, 0, 1)) . substr($this->className, 1);
-
+        $entity      = $this->className . 'Entity';
+        $entityParam = strtolower(substr($entity, 0, 1)) . substr($entity, 1);
 
         /**
          * Create  public function __construct()
          */
-        $construct = "public function __construct({$this->className}RepositoryInterface \${$setVaribleFormatedObject}Repository)\n
-        {
-            \$this->{$modelParam}Repository = \${$setVaribleFormatedObject}Repository;
-                
-        \n}
-        \n\n";
+        $construct  = "\tpublic function __construct({$this->className}RepositoryInterface \${$modelParam}Repository)\n";
+        $construct .= "\t{\n";
+        $construct .= "\t\t\$this->{$modelParam}Repository = \${$modelParam}Repository;\n";
+        $construct .= "\t}\n\n";
 
         /**
          * Create  public function index()
          */
-        $publicFunctionIndex = "public function index() \n{
-         try {
-            \$$pluralModel = \$this->{$setVaribleFormatedObject}Repository->findAll();
-
-            return response()->json(new {$this->className}Collection(\$$pluralModel));
-        } catch ({$this->className}NotFoundException \$e) {
-            return response()->json(\$e->getResponse(), \$e->getCode());
-        }                
-        \n}\n\n";
+        $publicFunctionIndex  = "\tpublic function index()\n";
+        $publicFunctionIndex .= "\t{\n";
+        $publicFunctionIndex .= "\t\ttry {\n";
+        $publicFunctionIndex .= "\t\t\t\$$pluralModel = \$this->{$modelParam}Repository->findAll();\n";
+        $publicFunctionIndex .= "\t\t\treturn response()->json(new {$this->className}Collection(\$$pluralModel));\n";
+        $publicFunctionIndex .= "\t\t} catch ({$this->className}NotFoundException \$e) {\n";
+        $publicFunctionIndex .= "\t\t\treturn response()->json(\$e->getResponse(), \$e->getCode());\n";
+        $publicFunctionIndex .= "\t\t}\n";
+        $publicFunctionIndex .= "\t}\n\n";
 
         /**
          * Create  public function store()
          */
-        $publicFunctionStore = "public function store(Store{$this->className}Request \$request) \n{
-          try {
-            \${$setVaribleFormatedObject} = new {$this->className}Entity(\$request->validated());
-            \${$setVaribleFormatedObject} = \$this->{$setVaribleFormatedObject}Repository->create(\${$setVaribleFormatedObject});
-
-            return response()->json(new {$this->className}Resource(\${$setVaribleFormatedObject}));
-        } catch (Create{$this->className}ErrorException \$e) {
-            return response()->json(\$e->getResponse(), \$e->getCode());
-        }            
-        \n}\n\n";
+        $publicFunctionStore = "\tpublic function store(Store{$this->className}Request \$request)\n";
+        $publicFunctionStore .= "\t{\n";
+        $publicFunctionStore .= "\t\ttry {\n";
+        $publicFunctionStore .= "\t\t\t\${$entityParam} = new {$entity}(\$request->validated());\n";
+        $publicFunctionStore .= "\t\t\t\${$modelParam} = \$this->{$this->className}Repository->create(\${$entityParam});\n\n";
+        $publicFunctionStore .= "\t\t\treturn response()->json(new {$this->className}Resource(\${$modelParam}));\n";
+        $publicFunctionStore .= "\t\t} catch (Create{$this->className}ErrorException \$e) {\n";
+        $publicFunctionStore .= "\t\t\treturn response()->json(\$e->getResponse(), \$e->getCode());\n";
+        $publicFunctionStore .= "\t\t}\n";
+        $publicFunctionStore .= "\t}\n\n";
 
         /**
          * Create  public function show()
          */
-        $publicFunctionShow = "public function show(string \$uuid) \n{
-          try {
-            \${$setVaribleFormatedObject} = \$this->{$setVaribleFormatedObject}Repository->findById(\$uuid);
-
-            return response()->json(new {$this->className}Resource(\${$setVaribleFormatedObject}));
-        } catch (Create{$this->className}ErrorException \$e) {
-            return response()->json(\$e->getResponse(), \$e->getCode());
-        }            
-        \n}\n\n";
+        $publicFunctionShow  = "\tpublic function show(string \$uuid)\n";
+        $publicFunctionShow .= "\t{\n";
+        $publicFunctionShow .= "\t\ttry {\n";
+        $publicFunctionShow .= "\t\t\t\${$modelParam} = \$this->{$modelParam}Repository->findById(\$uuid);\n";
+        $publicFunctionShow .= "\t\t\treturn response()->json(new {$this->className}Resource(\${$modelParam}));\n";
+        $publicFunctionShow .= "\t\t} catch (Create{$this->className}ErrorException \$e) {\n";
+        $publicFunctionShow .= "\t\t\treturn response()->json(\$e->getResponse(), \$e->getCode());\n";
+        $publicFunctionShow .= "\t\t}\n";
+        $publicFunctionShow .= "\t}\n\n";
 
 
 
         /**
          * Create  public function Update()
          */
-        $publicFunctionUpdate = "public function Update(Update{$this->className}Request \$request, string \$uuid) \n{
-          try {
-            \$validated = \$request->validated();
-            \$validated['uuid'] = \$uuid;
-
-            \${$setVaribleFormatedObject}Entity = new {$this->className}Entity(\$validated);
-            \${$setVaribleFormatedObject} = \$this->{$setVaribleFormatedObject}Repository->update(\${$setVaribleFormatedObject}Entity);
-
-            return response()->json(new {$this->className}Resource(\${$setVaribleFormatedObject}));
-        } catch (Update{$this->className}ErrorException \$e) {
-            return response()->json(\$e->getResponse(), \$e->getCode());
-        }    
-        \n}\n\n";
+        $publicFunctionUpdate = "\tpublic function update(Update{$this->className}Request \$request, string \$uuid)\n";
+        $publicFunctionUpdate .= "\t{\n";
+        $publicFunctionUpdate .= "\t\ttry {\n";
+        $publicFunctionUpdate .= "\t\t\t\$validated = \$request->validated();\n";
+        $publicFunctionUpdate .= "\t\t\t\$validated['uuid'] = \$uuid;\n\n";
+        $publicFunctionUpdate .= "\t\t\t\${$modelParam}Entity = new {$this->className}Entity(\$validated);\n";
+        $publicFunctionUpdate .= "\t\t\t\${$modelParam} = \$this->{$modelParam}Repository->update(\${$modelParam}Entity);\n\n";
+        $publicFunctionUpdate .= "\t\t\treturn response()->json(new {$this->className}Resource(\${$modelParam}));\n";
+        $publicFunctionUpdate .= "\t\t} catch (Update{$this->className}ErrorException \$e) {\n";
+        $publicFunctionUpdate .= "\t\t\treturn response()->json(\$e->getResponse(), \$e->getCode());\n";
+        $publicFunctionUpdate .= "\t\t}\n";
+        $publicFunctionUpdate .= "\t}\n\n";
 
         /**
          * Create  public function destroy()
          */
-        $publicFunctionDestroy = "public function destroy(string \$uuid) \n{
-           try {
-            \${$setVaribleFormatedObject} = \$this->{$setVaribleFormatedObject}Repository->delete(\$uuid);
-            \$response = [
-                'success' => [
-                    'message' => __('{$setVaribleFormatedObject} was successfully excluded.'),
-                ],
-            ];
-            return response()->json(\$response);
-        } catch (Delete{$this->className}ErrorException \$e) {
-            return response()->json(\$e->getResponse(), \$e->getCode());
-        }
-    }
-        \n}\n\n";
-
-
+        $publicFunctionDestroy  = "\tpublic function destroy(string \$uuid)\n";
+        $publicFunctionDestroy .= "\t{\n";
+        $publicFunctionDestroy .= "\t\ttry {\n";
+        $publicFunctionDestroy .= "\t\t\t\${$modelParam} = \$this->{$modelParam}Repository->delete(\$uuid);\n";
+        $publicFunctionDestroy .= "\t\t\t\$response = [\n";
+        $publicFunctionDestroy .= "\t\t\t\t'success' => [\n";
+        $publicFunctionDestroy .= "\t\t\t\t'message' => __('{$modelParam} was successfully excluded.'),\n";
+        $publicFunctionDestroy .= "\t\t\t\t],\n";
+        $publicFunctionDestroy .= "\t\t\t];\n";
+        $publicFunctionDestroy .= "\t\t\treturn response()->json(\$response);\n";
+        $publicFunctionDestroy .= "\t\t} catch (Delete{$this->className}ErrorException \$e) {\n";
+        $publicFunctionDestroy .= "\t\t\treturn response()->json(\$e->getResponse(), \$e->getCode());\n";
+        $publicFunctionDestroy .= "\t\t}\n";
+        $publicFunctionDestroy .= "\t}\n\n";
 
 
         $str = "<?php\n\n";
@@ -158,7 +142,7 @@ class GenerateController
         $str .= " use App\Repositories\\$this->className\Exceptions\\{$this->className}NotFoundException;\n";
         $str .= " use App\Repositories\\$this->className\Exceptions\Create{$this->className}ErrorException;\n";
         $str .= " use App\Repositories\\$this->className\Exceptions\Delete{$this->className}ErrorException;\n";
-        $str .= " use App\Repositories\\$this->className\Exceptions\Update{$this->className}ErrorException;\n";
+        $str .= " use App\Repositories\\$this->className\Exceptions\Update{$this->className}ErrorException;\n\n";
 
         $str .= "class {$this->className}Controller  extends Controller\n";
         $str .= "{\n\n";
@@ -166,7 +150,7 @@ class GenerateController
         /**
          * Private atribute
          */
-        $str .= "private \${$modelParam}Repository;\n\n";
+        $str .= "\tprivate \${$modelParam}Repository;\n\n";
         /**
          * Construct
          */
@@ -191,21 +175,11 @@ class GenerateController
          * PublicFunctionShow
          */
         $str .= $publicFunctionDestroy;
-
-
-
-
         $str .= "}\n\n";
-
-        $str .= "?>";
 
         $fileName = $this->path . '/' . $this->className . 'Controller.php';
         $fp = fopen($fileName, 'w');
         fwrite($fp, $str);
         fclose($fp);
-
-        return true;
-
     }
-
 }

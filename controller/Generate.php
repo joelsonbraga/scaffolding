@@ -43,16 +43,12 @@ class Generate
 
 
         if (!empty($this->controller)) {
-            $this->path = './generated/Controller/' . ucwords($this->className) ;
+            $this->path = '../generated/Controller' ;
             if (!is_dir($this->path)) {
-
                 mkdir($this->path, 0777, true);
             }
 
             (new GenerateController( $this->className, $this->path, $this->fields));
         }
-
     }
-
 }
-?>

@@ -8,10 +8,8 @@ ini_set('display_errors', 1);
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <title>Scaffolding</title>
 </head>
 <body>
@@ -22,12 +20,12 @@ ini_set('display_errors', 1);
     <div class="alert  alert-success <?php echo isset($_GET['msg'])?null:'d-none'?>" role="alert">
         <?php echo isset($_GET['msg'])? $_GET['msg']:'d-none'?>
     </div>
-    <form class="form-horizontal"  method="post"  action="repository/run.php">
+    <form class="form-horizontal"  method="post"  action="controller/run.php">
         <input type="hidden" name="action" value="generate">
         <fieldset>
 
             <!-- Form Name -->
-            <legend>Repository Generate</legend>
+            <legend>Controller Generate</legend>
 
             <!-- Text input-->
             <div class="form-group">
@@ -38,121 +36,39 @@ ini_set('display_errors', 1);
                 </div>
             </div>
 
-            <!-- Multiple Checkboxes -->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="repositoryClasses">Repository Classes</label>
+                <label class="col-md-4 control-label" for="controllerClasses">controller</label>
                 <div class="col-md-4">
                     <div class="checkbox">
-                        <label for="repositoryClasses-0">
-                            <input type="checkbox" checked name="repositoryClasses[entity]" id="repositoryClasses-0" value="entity">
-                            Entity
+                        <label for="controllerClasses-0">
+                            <input type="checkbox" checked name="controller[store]" id="controllerClasses-0" value="store">
+                            Store
                         </label>
                     </div>
                     <div class="checkbox">
-                        <label for="repositoryClasses-1">
-                            <input type="checkbox" checked name="repositoryClasses[interface]" id="repositoryClasses-1" value="interface">
-                            Interface
+                        <label for="controllerClasses-1">
+                            <input type="checkbox" checked name="controller[index]" id="controllerClasses-1" value="index">
+                            Index
                         </label>
                     </div>
                     <div class="checkbox">
-                        <label for="repositoryClasses-2">
-                            <input type="checkbox" checked name="repositoryClasses[repository]" id="repositoryClasses-2" value="repository">
-                            Repository
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="repositoryClasses">Requests</label>
-                <div class="col-md-4">
-                    <div class="checkbox">
-                        <label for="repositoryClasses-0">
-                            <input type="checkbox" checked name="requests[store]" id="repositoryClasses-0" value="store">
-                            store
+                        <label for="controllerClasses-2">
+                            <input type="checkbox" checked name="controller[update]" id="controllerClasses-2" value="update">
+                            Update
                         </label>
                     </div>
                     <div class="checkbox">
-                        <label for="repositoryClasses-1">
-                            <input type="checkbox" checked name="requests[index]" id="repositoryClasses-1" value="index">
-                            index
+                        <label for="controllerClasses-2">
+                            <input type="checkbox" checked name="controller[update]" id="controllerClasses-2" value="show">
+                            Show
                         </label>
                     </div>
                     <div class="checkbox">
-                        <label for="repositoryClasses-2">
-                            <input type="checkbox" checked name="requests[update]" id="repositoryClasses-2" value="update">
-                            update
+                        <label for="controllerClasses-2">
+                            <input type="checkbox" checked name="controller[delete]" id="controllerClasses-2" value="delete">
+                            Delete
                         </label>
                     </div>
-                </div>
-            </div>
-
-
-
-
-
-
-            <!-- Multiple Checkboxes -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="repositoryExceptions">Repository Exceptions</label>
-                <div class="col-md-4">
-                    <div class="checkbox">
-                        <label for="repositoryExceptions-0">
-                            <input type="checkbox" checked name="repositoryExceptions[create]" id="repositoryExceptions-0" value="create_error_exception">
-                            Create Error
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="repositoryExceptions-1">
-                            <input type="checkbox" checked name="repositoryExceptions[update]" id="repositoryExceptions-1" value="update_error_exception">
-                            Update Error
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="repositoryExceptions-2">
-                            <input type="checkbox" checked name="repositoryExceptions[delete]" id="repositoryExceptions-2" value="delete_error_exception">
-                            Delete Error
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="repositoryExceptions-3">
-                            <input type="checkbox" checked name="repositoryExceptions[not_foud]" id="repositoryExceptions-3" value="not_found_exception">
-                            Not Found
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="repositoryExceptions">Resources</label>
-                <div class="col-md-4">
-                    <div class="checkbox">
-                        <label for="repositoryExceptions-0">
-                            <input type="checkbox" checked name="resources[collection]" id="Resource-0" value="collection">
-                            Collection
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="repositoryExceptions-1">
-                            <input type="checkbox" checked name="resources[resource]" id="Resource-1" value="resource">
-                            Resources
-                        </label>
-                    </div>
-
-
-                </div>
-            </div>
-
-            <!-- Textarea -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="fields">Fields</label>
-                <div class="col-md-4">
-                    <textarea class="form-control" id="fields" name="fields">Separate fields by , Ex. field_1, field_1, field_1</textarea>
                 </div>
             </div>
 
