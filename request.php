@@ -27,7 +27,7 @@ ini_set('display_errors', 1);
         <fieldset>
 
             <!-- Form Name -->
-            <legend>Repository Generate</legend>
+            <legend>Request Generate</legend>
 
             <!-- Text input-->
             <div class="form-group">
@@ -37,57 +37,25 @@ ini_set('display_errors', 1);
                     <span class="help-block">Model Name</span>
                 </div>
             </div>
-
-            <!-- Multiple Checkboxes -->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="repositoryClasses">Repository Classes</label>
+                <label class="col-md-4 control-label" for="repositoryClasses">Requests</label>
                 <div class="col-md-4">
                     <div class="checkbox">
                         <label for="repositoryClasses-0">
-                            <input type="checkbox" checked name="repositoryClasses[entity]" id="repositoryClasses-0" value="entity">
-                            Entity
+                            <input type="checkbox" checked name="requests[store]" id="repositoryClasses-0" value="store">
+                            Store
                         </label>
                     </div>
                     <div class="checkbox">
                         <label for="repositoryClasses-1">
-                            <input type="checkbox" checked name="repositoryClasses[interface]" id="repositoryClasses-1" value="interface">
-                            Interface
+                            <input type="checkbox" checked name="requests[index]" id="repositoryClasses-1" value="index">
+                            Index
                         </label>
                     </div>
                     <div class="checkbox">
                         <label for="repositoryClasses-2">
-                            <input type="checkbox" checked name="repositoryClasses[repository]" id="repositoryClasses-2" value="repository">
-                            Repository
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <!-- Multiple Checkboxes -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="repositoryExceptions">Repository Exceptions</label>
-                <div class="col-md-4">
-                    <div class="checkbox">
-                        <label for="repositoryExceptions-0">
-                            <input type="checkbox" checked name="repositoryExceptions[create]" id="repositoryExceptions-0" value="create_error_exception">
-                            Create Error
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="repositoryExceptions-1">
-                            <input type="checkbox" checked name="repositoryExceptions[update]" id="repositoryExceptions-1" value="update_error_exception">
-                            Update Error
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="repositoryExceptions-2">
-                            <input type="checkbox" checked name="repositoryExceptions[delete]" id="repositoryExceptions-2" value="delete_error_exception">
-                            Delete Error
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="repositoryExceptions-3">
-                            <input type="checkbox" checked name="repositoryExceptions[not_foud]" id="repositoryExceptions-3" value="not_found_exception">
-                            Not Found
+                            <input type="checkbox" checked name="requests[update]" id="repositoryClasses-2" value="update">
+                            Update
                         </label>
                     </div>
                 </div>
@@ -107,6 +75,8 @@ ini_set('display_errors', 1);
                     <button id="generate" name="generate" class="btn btn-primary">Generate</button>
                 </div>
             </div>
+
+
         </fieldset>
     </form>
 </div>

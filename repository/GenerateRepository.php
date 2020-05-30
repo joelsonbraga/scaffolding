@@ -43,129 +43,125 @@ class GenerateRepository
         $str.= "namespace App\\Repositories\\$this->className;\n\n";
 
         $str.= "use App\Models\\$this->className;\n";
-        $str.= "use App\Repositories\\$this->className\Exceptions\\{$this->className}FoundException;\n";
+        $str.= "use App\Repositories\\$this->className\Exceptions\\{$this->className}NotFoundException;\n";
         $str.= "use App\Repositories\\$this->className\Exceptions\Create{$this->className}ErrorException;\n";
         $str.= "use App\Repositories\\$this->className\Exceptions\Delete{$this->className}ErrorException;\n";
         $str.= "use App\Repositories\\$this->className\Exceptions\Update{$this->className}ErrorException;\n";
-        $str.= "use Illuminate\Database\Query\Builder;\n";
         $str.= "use Illuminate\Database\QueryException;\n";
         $str.= "use Illuminate\Pagination\LengthAwarePaginator;\n\n\n";
 
         $str.= "class {$this->className}Repository implements {$this->className}RepositoryInterface\n";
         $str.= "{\n\n";
 
-        $str.= "private \${$modelParam};\n";
-        $str.= "private \$perPage = 25;\n\n";
+        $str.= "\tprivate \${$modelParam};\n";
+        $str.= "\tprivate \$perPage = 25;\n\n";
 
         /**
          * Construct
          */
-        $str.= "public function __construct({$this->className} \${$modelParam})\n";
-        $str.= "{\n";
-        $str.= "    \$this->{$modelParam} = \${$modelParam};\n";
-        $str.= "}\n\n";
+        $str.= "\tpublic function __construct({$this->className} \${$modelParam})\n";
+        $str.= "\t{\n";
+        $str.= "    \t\$this->{$modelParam} = \${$modelParam};\n";
+        $str.= "\t}\n\n";
 
         /**
          * Create method
          */
-        $str.= "public function create({$entity} \${$entityParam}): {$this->className}\n";
-        $str.= "{\n";
-        $str.= "    try {\n\n";
-
+        $str.= "\tpublic function create({$entity} \${$entityParam}): {$this->className}\n";
+        $str.= "\t{\n";
+        $str.= "    \ttry {\n";
         foreach ($this->fields as $key => $field) {
             $field = trim($field);
-            if ($field != 'id') {
+            if ($field != 'id' and $field != 'uuid') {
                 $getName = str_replace('_', '', ucwords($field, '_'));
 
-                $str .= "        \$this->{$modelParam}->{$field} = \${$entityParam}->get{$getName}();\n";
+                $str .= "        \t\$this->{$modelParam}->{$field} = \${$entityParam}->get{$getName}();\n";
             }
         }
-        $str.= "\n";
-        $str.= "        \$this->{$modelParam}->save();\n";
-        $str.= "    } catch (QueryException | \Throwable \$e) {\n";
-        $str.= "        throw new Create{$this->className}ErrorException(\$e->getMessage(), 500);\n";
-        $str.= "    }\n\n";
-        $str.= "    return \$this->{$modelParam};\n";
-        $str.= "}\n\n";
+        $str.= "        \t\$this->{$modelParam}->save();\n";
+        $str.= "    \t} catch (QueryException | \Throwable \$e) {\n";
+        $str.= "        \tthrow new Create{$this->className}ErrorException(\$e->getMessage(), 500);\n";
+        $str.= "    \t}\n\n";
+        $str.= "    \treturn \$this->{$modelParam};\n";
+        $str.= "\t}\n\n";
 
         /**
          * Update method
          */
-        $str.= "public function update({$entity} \${$entityParam}): {$this->className}\n";
-        $str.= "{\n";
-        $str.= "    try {\n\n";
-        $str.= "        \$$modelParam = \$this->findById(\${$entityParam}->getUuid());\n\n";
-
+        $str.= "\tpublic function update({$entity} \${$entityParam}): {$this->className}\n";
+        $str.= "\t{\n";
+        $str.= "    \ttry {\n";
+        $str.= "        \t\$$modelParam = \$this->findById(\${$entityParam}->getUuid());\n\n";
         foreach ($this->fields as $key => $field) {
             $field = trim($field);
-            if ($field != 'id') {
+            if ($field != 'id' and $field != 'uuid') {
                 $getName = str_replace('_', '', ucwords($field, '_'));
 
-                $str .= "        \${$modelParam}->{$field} = \${$entityParam}->get{$getName}();\n";
+                $str .= "        \t\${$modelParam}->{$field} = \${$entityParam}->get{$getName}();\n";
             }
         }
-        $str.= "\n";
-        $str.= "        \${$modelParam}->save();\n";
-        $str.= "    } catch (QueryException | \Throwable \$e) {\n";
-        $str.= "        throw new Update{$this->className}ErrorException(\$e->getMessage(), 500);\n";
-        $str.= "    }\n\n";
-        $str.= "    return \${$modelParam};\n";
-        $str.= "}\n\n";
+        $str.= "        \t\${$modelParam}->save();\n";
+        $str.= "    \t} catch (QueryException | \Throwable \$e) {\n";
+        $str.= "        \tthrow new Update{$this->className}ErrorException(\$e->getMessage(), 500);\n";
+        $str.= "    \t}\n\n";
+        $str.= "    \treturn \${$modelParam};\n";
+        $str.= "\t}\n\n";
 
         /**
          * Delete method
          */
-        $str.= "public function delete(string \$uuid): bool\n";
-        $str.= "{\n";
-        $str.= "    try {\n\n";
-        $str.= "        return \$this->{$modelParam}->where('uuid', \$uuid)->first()->delete();\n";
-        $str.= "    } catch (QueryException | \Throwable \$e) {\n";
-        $str.= "        throw new Delete{$this->className}ErrorException(\$e->getMessage(), 500);\n";
-        $str.= "    }\n\n";
-        $str.= "}\n\n";
+        $str.= "\tpublic function delete(string \$uuid): bool\n";
+        $str.= "\t{\n";
+        $str.= "    \ttry {\n";
+        $str.= "        \treturn \$this->{$modelParam}->where('uuid', \$uuid)->first()->delete();\n";
+        $str.= "    \t} catch (QueryException | \Throwable \$e) {\n";
+        $str.= "        \tthrow new Delete{$this->className}ErrorException(\$e->getMessage(), 500);\n";
+        $str.= "    \t}\n";
+        $str.= "\t}\n\n";
 
         /**
          * Find by id method
          */
-        $str.= "public function findById(string \$uuid): {$this->className}\n";
-        $str.= "{\n";
-        $str.= "    try {\n\n";
-        $str.= "        return \$this->{$modelParam}->where('uuid', \$uuid)->first();\n";
-        $str.= "    } catch (QueryException | \Throwable \$e) {\n";
-        $str.= "        throw new {$this->className}NotFoundException(\$e->getMessage());\n";
-        $str.= "    }\n\n";
-        $str.= "}\n\n";
+        $str.= "\tpublic function findById(string \$uuid): {$this->className}\n";
+        $str.= "\t{\n";
+        $str.= "    \ttry {\n";
+        $str.= "        \treturn \$this->{$modelParam}->where('uuid', \$uuid)->first();\n";
+        $str.= "    \t} catch (QueryException | \Throwable \$e) {\n";
+        $str.= "        \tthrow new {$this->className}NotFoundException(\$e->getMessage());\n";
+        $str.= "    \t}\n";
+        $str.= "\t}\n\n";
 
         /**
          * Find all id method
          */
-        $str.= " public function findAll(array \$filter = null, string \$sortBy = 'name', string \$orientation = 'asc'): LengthAwarePaginator\n";
-        $str.= "{\n";
-        $str.= "    try {\n\n";
+        $str.= "\tpublic function findAll({$entity} \${$entityParam} = null, string \$sortBy = 'id', string \$orientation = 'asc'): LengthAwarePaginator\n";
+        $str.= "\t{\n";
+        $str.= "    \ttry {\n";
 
-        $str.= "        \${$modelParam} =  \$this->{$modelParam}\n";
-        $str.= "        ->where(function(Builder \$query) use (\$filter) {\n";
-        $str.= "            if (!empty(\$filter)) {\n";
-                                foreach ($this->fields as $key => $field) {
+        $str.= "        \t\${$modelParam} =  \$this->{$modelParam}\n";
+        $str.= "        \t->where(function(\$query) use (\${$entityParam}) {\n";
+                            foreach ($this->fields as $key => $field) {
                                     $field = trim($field);
 
                                     if ($field != 'id') {
-                                        $str.= "                \$query->where('{$field}', \$filter['{$field}'] ?? null);\n";
+                                        $getName = str_replace('_', '', ucwords($field, '_'));
+
+                                        $str.= "            \tif (!is_null(\${$entityParam}->get{$getName}())) {\n";
+                                        $str.= "                \t\$query->where('{$field}', \${$entityParam}->get{$getName}());\n";
+                                        $str.= "            \t}\n";
                                     }
                                 }
-        $str.= "            }\n";
-        $str.= "        })\n";
-        $str.= "        ->orderBy(\$sortBy, \$orientation)\n";
-        $str.= "        ->paginate(\$this->perPage);\n\n";
+        $str.= "        \t})\n";
+        $str.= "        \t->orderBy(\$sortBy, \$orientation)\n";
+        $str.= "        \t->paginate(\$this->perPage);\n\n";
 
-        $str.= "    } catch (QueryException | \Throwable \$e) {\n";
-        $str.= "        throw new {$this->className}NotFoundException(\$e->getMessage());\n";
-        $str.= "    }\n\n";
-        $str.= "    return \${$modelParam};\n";
-        $str.= "}\n\n";
+        $str.= "    \t} catch (QueryException | \Throwable \$e) {\n";
+        $str.= "        \tthrow new {$this->className}NotFoundException(\$e->getMessage());\n";
+        $str.= "    \t}\n\n";
+        $str.= "    \treturn \${$modelParam};\n";
+        $str.= "\t}\n\n";
 
-        $str.= "}\n\n";
-        $str.= "?>";
+        $str.= "}";
 
 
         $fileName = $this->path . '/' . $this->className . 'Repository.php';
@@ -173,5 +169,6 @@ class GenerateRepository
         fwrite($fp, $str);
         fclose($fp);
 
+        die('here');
     }
 }

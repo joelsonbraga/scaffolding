@@ -31,10 +31,10 @@ ini_set('display_errors', 1);
 
             <!-- Text input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="class_name">Model Name</label>
+                <label class="col-md-4 control-label" for="class_name">Class Name</label>
                 <div class="col-md-5">
                     <input id="className" name="className" type="text" placeholder="Class Name" class="form-control input-md" required="">
-                    <span class="help-block">Model Name</span>
+                    <span class="help-block">Class Name</span>
                 </div>
             </div>
 
@@ -62,6 +62,38 @@ ini_set('display_errors', 1);
                     </div>
                 </div>
             </div>
+
+
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="repositoryClasses">Requests</label>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label for="repositoryClasses-0">
+                            <input type="checkbox" checked name="requests[store]" id="repositoryClasses-0" value="store">
+                            store
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="repositoryClasses-1">
+                            <input type="checkbox" checked name="requests[index]" id="repositoryClasses-1" value="index">
+                            index
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="repositoryClasses-2">
+                            <input type="checkbox" checked name="requests[update]" id="repositoryClasses-2" value="update">
+                            update
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
             <!-- Multiple Checkboxes -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="repositoryExceptions">Repository Exceptions</label>
@@ -92,6 +124,30 @@ ini_set('display_errors', 1);
                     </div>
                 </div>
             </div>
+
+
+
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="repositoryExceptions">Resources</label>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label for="repositoryExceptions-0">
+                            <input type="checkbox" checked name="resources[collection]" id="Resource-0" value="collection">
+                            Collection
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="repositoryExceptions-1">
+                            <input type="checkbox" checked name="resources[resource]" id="Resource-1" value="resource">
+                            Resources
+                        </label>
+                    </div>
+
+
+                </div>
+            </div>
+
             <!-- Textarea -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="fields">Fields</label>
@@ -107,6 +163,8 @@ ini_set('display_errors', 1);
                     <button id="generate" name="generate" class="btn btn-primary">Generate</button>
                 </div>
             </div>
+
+
         </fieldset>
     </form>
 </div>

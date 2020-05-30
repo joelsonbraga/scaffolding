@@ -44,13 +44,12 @@ class GenerateInterfaceRepository
 
         $str.= "interface {$this->className}RepositoryInterface\n";
         $str.= "{\n\n";
-        $str.= "public function create({$entity} \$$entityParam): {$this->className};\n";
-        $str.= "public function update({$entity} \$$entityParam): {$this->className};\n";
-        $str.= "public function delete(string \$uuid): bool;\n";
-        $str.= "public function findById(string \$uuid): {$this->className};\n";
-        $str.= "public function findAll(array \$filter = null, string \$sortBy = 'name', string \$orientation = 'asc'): LengthAwarePaginator;\n";
-        $str.= "}\n\n";
-        $str.= "?>";
+        $str.= "\tpublic function create({$entity} \$$entityParam): {$this->className};\n";
+        $str.= "\tpublic function update({$entity} \$$entityParam): {$this->className};\n";
+        $str.= "\tpublic function delete(string \$uuid): bool;\n";
+        $str.= "\tpublic function findById(string \$uuid): {$this->className};\n";
+        $str.= "\tpublic function findAll({$entity} \$$entityParam = null, string \$sortBy = 'id', string \$orientation = 'asc'): LengthAwarePaginator;\n";
+        $str.= "}";
 
         $fileName = $this->path . '/' . $this->className . 'RepositoryInterface.php';
         $fp = fopen($fileName, 'w');
