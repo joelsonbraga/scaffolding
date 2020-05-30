@@ -47,25 +47,22 @@ class GenerateException
         }
     }
 
-
     private function create(): bool
     {
         $str = "<?php\n\n";
 
         $str .= "namespace App\Repositories\\$this->className\Exceptions;\n\n";
 
-        $str .= "use Exception;\n";
+        $str .= "use App\Repositories\BaseException;\n";
         $str .= "use Throwable;\n\n";
 
-        $str .= "class Create{$this->className}ErrorException extends Exception\n";
+        $str .= "class Create{$this->className}ErrorException extends BaseException\n";
         $str .= "{\n";
-        $str .= "    public function __construct(\$message = '', \$code = 0, Throwable \$previous = null)\n";
+        $str .= "    public function __construct(string \$message, int \$code = 500, Throwable \$previous = null)\n";
         $str .= "    {\n";
         $str .= "        parent::__construct(__('Unable to create {$this->className}.'  . \$message), \$code, \$previous);\n";
         $str .= "    }\n";
-        $str .= "}\n\n";
-
-        $str.= "?>";
+        $str .= "}";
 
         $fileName = $this->path . '/Create' . $this->className . 'ErrorException.php';
         $fp = fopen($fileName, 'w');
@@ -81,18 +78,16 @@ class GenerateException
 
         $str .= "namespace App\Repositories\\$this->className\Exceptions;\n\n";
 
-        $str .= "use Exception;\n";
+        $str .= "use App\Repositories\BaseException;\n";
         $str .= "use Throwable;\n\n";
 
-        $str .= "class Update{$this->className}ErrorException extends Exception\n";
+        $str .= "class Update{$this->className}ErrorException extends BaseException\n";
         $str .= "{\n";
-        $str .= "    public function __construct(\$message = '', \$code = 0, Throwable \$previous = null)\n";
+        $str .= "    public function __construct(string \$message = '', \$code = 500, Throwable \$previous = null)\n";
         $str .= "    {\n";
         $str .= "        parent::__construct(__('Unable to update {$this->className}.'  . \$message), \$code, \$previous);\n";
         $str .= "    }\n";
-        $str .= "}\n\n";
-
-        $str.= "?>";
+        $str .= "}";
 
         $fileName = $this->path . '/Update' . $this->className . 'ErrorException.php';
         $fp = fopen($fileName, 'w');
@@ -108,18 +103,16 @@ class GenerateException
 
         $str .= "namespace App\Repositories\\$this->className\Exceptions;\n\n";
 
-        $str .= "use Exception;\n";
+        $str .= "use App\Repositories\BaseException;\n";
         $str .= "use Throwable;\n\n";
 
-        $str .= "class Delete{$this->className}ErrorException extends Exception\n";
+        $str .= "class Delete{$this->className}ErrorException extends BaseException\n";
         $str .= "{\n";
-        $str .= "    public function __construct(\$message = '', \$code = 0, Throwable \$previous = null)\n";
+        $str .= "    public function __construct(string \$message, \$code = 500, Throwable \$previous = null)\n";
         $str .= "    {\n";
         $str .= "        parent::__construct(__('Unable to delete {$this->className}.'  . \$message), \$code, \$previous);\n";
         $str .= "    }\n";
-        $str .= "}\n\n";
-
-        $str.= "?>";
+        $str .= "}";
 
         $fileName = $this->path . '/Delete' . $this->className . 'ErrorException.php';
         $fp = fopen($fileName, 'w');
@@ -135,18 +128,16 @@ class GenerateException
 
         $str .= "namespace App\Repositories\\$this->className\Exceptions;\n\n";
 
-        $str .= "use Exception;\n";
+        $str .= "use App\Repositories\BaseException;\n";
         $str .= "use Throwable;\n\n";
 
-        $str .= "class {$this->className}NotFoundException extends Exception\n";
+        $str .= "class {$this->className}NotFoundException extends BaseException\n";
         $str .= "{\n";
-        $str .= "    public function __construct(\$message = '', \$code = 0, Throwable \$previous = null)\n";
+        $str .= "    public function __construct(string \$message, \$code = 404, Throwable \$previous = null)\n";
         $str .= "    {\n";
-        $str .= "        parent::__construct(__('{$this->className} not found.'  . \$message), 404, \$previous);\n";
+        $str .= "        parent::__construct(__('{$this->className} not found.'  . \$message), \$code, \$previous);\n";
         $str .= "    }\n";
-        $str .= "}\n\n";
-
-        $str.= "?>";
+        $str .= "}";
 
         $fileName = $this->path . '/' . $this->className . 'NotFoundException.php';
         $fp = fopen($fileName, 'w');

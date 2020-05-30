@@ -22,7 +22,7 @@ ini_set('display_errors', 1);
     <div class="alert  alert-success <?php echo isset($_GET['msg'])?null:'d-none'?>" role="alert">
         <?php echo isset($_GET['msg'])? $_GET['msg']:'d-none'?>
     </div>
-    <form class="form-horizontal"  method="post"  action="repository/run.php">
+    <form class="form-horizontal"  method="post"  action="request/run.php">
         <input type="hidden" name="action" value="generate">
         <fieldset>
 
@@ -38,23 +38,23 @@ ini_set('display_errors', 1);
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label" for="repositoryClasses">Requests</label>
+                <label class="col-md-4 control-label" for="requestClasses">Requests</label>
                 <div class="col-md-4">
                     <div class="checkbox">
-                        <label for="repositoryClasses-0">
-                            <input type="checkbox" checked name="requests[store]" id="repositoryClasses-0" value="store">
+                        <label for="requestClasses-0">
+                            <input type="checkbox" checked name="requests[store]" id="requestClasses-0" value="store">
                             Store
                         </label>
                     </div>
                     <div class="checkbox">
-                        <label for="repositoryClasses-1">
-                            <input type="checkbox" checked name="requests[index]" id="repositoryClasses-1" value="index">
+                        <label for="requestClasses-1">
+                            <input type="checkbox" checked name="requests[index]" id="requestClasses-1" value="index">
                             Index
                         </label>
                     </div>
                     <div class="checkbox">
-                        <label for="repositoryClasses-2">
-                            <input type="checkbox" checked name="requests[update]" id="repositoryClasses-2" value="update">
+                        <label for="requestClasses-2">
+                            <input type="checkbox" checked name="requests[update]" id="requestClasses-2" value="update">
                             Update
                         </label>
                     </div>

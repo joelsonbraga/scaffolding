@@ -44,29 +44,29 @@ class GenerateUpdateRequest
         foreach ($this->fields as $key => $field) {
             $field = trim($field);
 
-            $rules .= "'{$field}' => [ \n'required',\n Rule::unique('nameTable')->ignore(".'$this->uuid'.", 'uuid')],\n";
-            $midMensagem .= "'{$field}.required' =>          __('A {$field} is required.'),\n";
-
-
+            if ($field != 'id' && $field != 'uuid') {
+                $rules .= "\t\t\t'{$field}' => [\n\t\t\t\t'required',\n\t\t\t\tRule::unique('nameTable')->ignore(" . '$this->uuid' . ", 'uuid')\n\t\t\t],\n";
+                $midMensagem .= "\t\t\t'{$field}.required' => __('A {$field} is required.'),\n";
+            }
         }
 
-        $PublicFunctionRules = "public function rules()\n{\n return [\n{$rules}];\n}\n\n";
-        $PublicFunctionMensagem = "public function messages()\n{\n return [\n{$midMensagem}];\n}\n\n";
+        $publicFunctionRules    = "\tpublic function rules()\n\t{\n\t\treturn [\n{$rules}\t\t];\n\t}\n\n";
+        $publicFunctionMensagem = "\tpublic function messages()\n\t{\n\t\treturn [\n{$midMensagem}\t\t];\n\t}\n\n";
+
         $str = "<?php\n\n";
         $str .= "namespace App\Http\Requests\\$this->className;\n\n";
         $str .= "use Illuminate\Foundation\Http\FormRequest;\n";
-        $str .= "use Illuminate\Validation\Rule;\n";
+        $str .= "use Illuminate\Validation\Rule;\n\n";
 
         $str .= "class Update{$this->className}Request extends FormRequest\n";
-        $str .= "{\n\n";
-        $str .= "    public function authorize()\n";
-        $str .= "    {\n";
-        $str .= "     return true;";
-        $str .= "\n\n}\n\n";
-        $str .= $PublicFunctionRules;
-        $str .= $PublicFunctionMensagem;
-        $str .= "}\n\n";
-        $str .= "?>";
+        $str .= "{\n";
+        $str .= "\tpublic function authorize()\n";
+        $str .= "\t{\n";
+        $str .= "\t\treturn true;\n";
+        $str .= "\t}\n\n";
+        $str .= $publicFunctionRules;
+        $str .= $publicFunctionMensagem;
+        $str .= "}";
 
         $fileName = $this->path . '/' . 'Update'.$this->className . 'Request.php';
         $fp = fopen($fileName, 'w');

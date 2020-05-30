@@ -1,10 +1,7 @@
 <?php
 
 
-/**
- * Class GenerateEntity
- */
-class GenerateStoreRequest
+class GenerateIndexRequest
 {
     /**
      * @var string
@@ -31,6 +28,8 @@ class GenerateStoreRequest
         $this->fields    = explode(',', $fields);
         $this->path      = $path;
 
+        print_r($this);
+
         $this->make();
     }
 
@@ -54,7 +53,7 @@ class GenerateStoreRequest
         $str = "<?php\n\n";
         $str .= "namespace App\Http\Requests\\$this->className;\n\n";
         $str .= "use Illuminate\Foundation\Http\FormRequest;\n\n";
-        $str .= "class Store{$this->className}Request extends FormRequest\n";
+        $str .= "class Index{$this->className}Request extends FormRequest\n";
         $str .= "{\n\n";
         $str .= "\tpublic function authorize()\n";
         $str .= "\t{\n";
@@ -65,7 +64,7 @@ class GenerateStoreRequest
         $str .= "}\n\n";
 
 
-        $fileName = $this->path . '/' . 'Store'.$this->className . 'Request.php';
+        $fileName = $this->path . '/' . 'Index' . $this->className . 'Request.php';
         $fp = fopen($fileName, 'w');
         fwrite($fp, $str);
         fclose($fp);

@@ -169,6 +169,5 @@ class GenerateRepository
         fwrite($fp, $str);
         fclose($fp);
 
-        die('here');
     }
 }
