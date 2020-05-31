@@ -92,8 +92,6 @@ class GenerateController
         $publicFunctionShow .= "\t\t}\n";
         $publicFunctionShow .= "\t}\n\n";
 
-
-
         /**
          * Create  public function Update()
          */
@@ -130,19 +128,18 @@ class GenerateController
 
 
         $str = "<?php\n\n";
-        $str .= "namespace App\Http\Resources\\$this->className;\n\n";
-        $str .= "use Illuminate\Http\Resources\Json\ResourceCollection;\n\n";
+        $str .= "namespace App\Http\Controllers\v1;\n\n";
 
-        $str .= " use App\Http\Requests\\$this->className\Store{$this->className}Request;\n";
-        $str .= " use App\Http\Requests\\$this->className\Update{$this->className}Request;\n";
-        $str .= " use App\Http\Resources\\$this->className\\{$this->className}Collection;\n";
-        $str .= " use App\Http\Resources\\$this->className\\{$this->className}Resource;\n";
-        $str .= " use App\Repositories\\$this->className\\{$this->className}Entity;\n";
-        $str .= " use App\Repositories\\$this->className\\{$this->className}RepositoryInterface;\n";
-        $str .= " use App\Repositories\\$this->className\Exceptions\\{$this->className}NotFoundException;\n";
-        $str .= " use App\Repositories\\$this->className\Exceptions\Create{$this->className}ErrorException;\n";
-        $str .= " use App\Repositories\\$this->className\Exceptions\Delete{$this->className}ErrorException;\n";
-        $str .= " use App\Repositories\\$this->className\Exceptions\Update{$this->className}ErrorException;\n\n";
+        $str .= "use App\Http\Requests\\$this->className\Store{$this->className}Request;\n";
+        $str .= "use App\Http\Requests\\$this->className\Update{$this->className}Request;\n";
+        $str .= "use App\Http\Resources\\$this->className\\{$this->className}Collection;\n";
+        $str .= "use App\Http\Resources\\$this->className\\{$this->className}Resource;\n";
+        $str .= "use App\Repositories\\$this->className\\{$this->className}Entity;\n";
+        $str .= "use App\Repositories\\$this->className\\{$this->className}RepositoryInterface;\n";
+        $str .= "use App\Repositories\\$this->className\Exceptions\\{$this->className}NotFoundException;\n";
+        $str .= "use App\Repositories\\$this->className\Exceptions\Create{$this->className}ErrorException;\n";
+        $str .= "use App\Repositories\\$this->className\Exceptions\Delete{$this->className}ErrorException;\n";
+        $str .= "use App\Repositories\\$this->className\Exceptions\Update{$this->className}ErrorException;\n\n";
 
         $str .= "class {$this->className}Controller  extends Controller\n";
         $str .= "{\n\n";
