@@ -3,7 +3,6 @@
 require_once __DIR__. '/GenerateEntity.php';
 require_once __DIR__. '/GenerateInterfaceRepository.php';
 require_once __DIR__. '/GenerateException.php';
-require_once __DIR__. '/GenerateRequests.php';
 require_once __DIR__. '/GenerateRepository.php';
 
 /**
