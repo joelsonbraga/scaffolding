@@ -44,7 +44,7 @@ class GenerateResource
             $midToArray .= "\t\t\t\t'{$field}' => \$this->{$field},\n";
         }
 
-        $toArray = "\tpublic function toArray(): array\n\t{\n";
+        $toArray = "\tpublic function toArray(\$request): array\n\t{\n";
         $toArray .= "\t\treturn [\n\t\t\t'data' => [\n{$midToArray}\t\t\t],\n\t\t];\n\t}\n";
 
         $str = "<?php\n\n";

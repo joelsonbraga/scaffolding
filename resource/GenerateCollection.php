@@ -43,7 +43,7 @@ class GenerateCollection
             $midToArray .= "\t\t\t\t'{$field}' => \$item->{$field},\n";
         }
 
-        $toArray = "\tpublic function toArray(): array\n";
+        $toArray = "\tpublic function toArray(\$request): array\n";
         $toArray.= "\t{\n\t\t\$collection = \$this->resource->toArray();\n";
         $toArray.= "\t\t\$collection['data'] = \$this->collection->map(function (\$item, \$key) {\n";
         $toArray.= "\t\t\treturn [\n";

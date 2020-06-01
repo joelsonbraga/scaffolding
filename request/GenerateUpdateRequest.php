@@ -45,7 +45,7 @@ class GenerateUpdateRequest
             $field = trim($field);
 
             if ($field != 'id' && $field != 'uuid') {
-                $rules .= "\t\t\t'{$field}' => [\n\t\t\t\t'required',\n\t\t\t\tRule::unique('nameTable')->ignore(" . '$this->uuid' . ", 'uuid')\n\t\t\t],\n";
+                $rules .= "\t\t\t'{$field}' => [\n\t\t\t\t'required',\n\t\t\t],\n";
                 $midMensagem .= "\t\t\t'{$field}.required' => __('A {$field} is required.'),\n";
             }
         }
