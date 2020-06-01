@@ -55,11 +55,12 @@ class GenerateController
         /**
          * Create  public function index()
          */
-        $publicFunctionIndex  = "\tpublic function index()\n";
+        $publicFunctionIndex  = "\tpublic function index(Index{$this->className}Request \$request)\n";
         $publicFunctionIndex .= "\t{\n";
         $publicFunctionIndex .= "\t\ttry {\n";
-        $publicFunctionIndex .= "\t\t\t\$$pluralModel = \$this->{$modelParam}Repository->findAll();\n";
-        $publicFunctionIndex .= "\t\t\treturn response()->json(new {$this->className}Collection(\$$pluralModel));\n";
+        $publicFunctionIndex .= "\t\t\t\${$entityParam} = new {$entity}(\$request->validated());\n";
+        $publicFunctionIndex .= "\t\t\t\$$modelParam = \$this->{$modelParam}Repository->findAll({$entityParam});\n";
+        $publicFunctionIndex .= "\t\t\treturn response()->json(new {$this->className}Collection(\$$modelParam));\n";
         $publicFunctionIndex .= "\t\t} catch ({$this->className}NotFoundException \$e) {\n";
         $publicFunctionIndex .= "\t\t\treturn response()->json(\$e->getResponse(), \$e->getCode());\n";
         $publicFunctionIndex .= "\t\t}\n";
@@ -130,6 +131,7 @@ class GenerateController
         $str = "<?php\n\n";
         $str .= "namespace App\Http\Controllers\v1;\n\n";
 
+        $str .= "use App\Http\Requests\\$this->className\Index{$this->className}Request;\n";
         $str .= "use App\Http\Requests\\$this->className\Store{$this->className}Request;\n";
         $str .= "use App\Http\Requests\\$this->className\Update{$this->className}Request;\n";
         $str .= "use App\Http\Resources\\$this->className\\{$this->className}Collection;\n";
