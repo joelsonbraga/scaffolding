@@ -57,7 +57,7 @@ class GenerateResource
         $str .= $toArray;
         $str .= "}";
 
-        $fileName = $this->path . '/' . $this->className .'Resources.php';
+        $fileName = $this->path . '/' . $this->className .'Resource.php';
         $fp = fopen($fileName, 'w');
         fwrite($fp, $str);
         fclose($fp);
