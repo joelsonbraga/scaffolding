@@ -73,7 +73,7 @@ class GenerateController
         $publicFunctionStore .= "\t{\n";
         $publicFunctionStore .= "\t\ttry {\n";
         $publicFunctionStore .= "\t\t\t\${$entityParam} = new {$entity}(\$request->validated());\n";
-        $publicFunctionStore .= "\t\t\t\${$modelParam} = \$this->{$this->className}Repository->create(\${$entityParam});\n\n";
+        $publicFunctionStore .= "\t\t\t\${$modelParam} = \$this->{$modelParam}Repository->create(\${$entityParam});\n\n";
         $publicFunctionStore .= "\t\t\treturn response()->json(new {$this->className}Resource(\${$modelParam}));\n";
         $publicFunctionStore .= "\t\t} catch (Create{$this->className}ErrorException \$e) {\n";
         $publicFunctionStore .= "\t\t\treturn response()->json(\$e->getResponse(), \$e->getCode());\n";
@@ -129,7 +129,7 @@ class GenerateController
 
 
         $str = "<?php\n\n";
-        $str .= "namespace App\Http\Controllers\v1;\n\n";
+        $str .= "namespace App\Http\Controllers\\v1;\n\n";
 
         $str .= "use App\Http\Requests\\$this->className\Index{$this->className}Request;\n";
         $str .= "use App\Http\Requests\\$this->className\Store{$this->className}Request;\n";
