@@ -56,7 +56,7 @@ class GenerateController
         $publicFunctionIndex .= "\t{\n";
         $publicFunctionIndex .= "\t\ttry {\n";
         $publicFunctionIndex .= "\t\t\t\${$entityParam} = new {$entity}(\$request->validated());\n";
-        $publicFunctionIndex .= "\t\t\t\$$modelParam = \$this->{$modelParam}Repository->findAll({$entityParam});\n";
+        $publicFunctionIndex .= "\t\t\t\$$modelParam = \$this->{$modelParam}Repository->findAll(\$$entityParam);\n";
         $publicFunctionIndex .= "\t\t\treturn response()->json(new {$this->className}Collection(\$$modelParam));\n";
         $publicFunctionIndex .= "\t\t} catch ({$this->className}NotFoundException \$e) {\n";
         $publicFunctionIndex .= "\t\t\treturn response()->json(\$e->getResponse(), \$e->getCode());\n";
