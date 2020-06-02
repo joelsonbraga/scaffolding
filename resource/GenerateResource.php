@@ -41,11 +41,11 @@ class GenerateResource
         foreach ($this->fields as $key => $field) {
 
             $field = trim($field);
-            $midToArray .= "\t\t\t\t'{$field}' => \$this->{$field},\n";
+            $midToArray .= "\t\t\t'{$field}' => \$this->{$field},\n";
         }
 
         $toArray = "\tpublic function toArray(\$request): array\n\t{\n";
-        $toArray .= "\t\treturn [\n\t\t\t'data' => [\n{$midToArray}\t\t\t],\n\t\t];\n\t}\n";
+        $toArray .= "\t\treturn [\n{$midToArray}\t\t];\n\t}\n";
 
         $str = "<?php\n\n";
 

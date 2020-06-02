@@ -7,4 +7,4 @@ if (isset($_POST['action']) && $_POST['action'] === 'generate') {
     (new Generate($_REQUEST))->run();
 }
 
-header('location:./resource.php?msg=Resource gerado com sucesso. É só copiá-lo de dentro da pasta generated.');
+header('location:../resource.php?msg=Resource gerado com sucesso. É só copiá-lo de dentro da pasta generated.');
