@@ -37,9 +37,6 @@ class GenerateController
     public function make()
     {
 
-        $pluralModel = $this->className;
-
-        $setVaribleFormatedObject = strtolower(substr($this->className, 0, 1)) . substr($this->className, 1);
         $modelParam = strtolower(substr($this->className, 0, 1)) . substr($this->className, 1);
         $entity      = $this->className . 'Entity';
         $entityParam = strtolower(substr($entity, 0, 1)) . substr($entity, 1);
