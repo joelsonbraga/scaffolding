@@ -28,6 +28,9 @@ ini_set('display_errors', 1);
         <li class="list-group-item">
             <a href="controller.php">Controller</a>
         </li>
+        <li class="list-group-item">
+            <a href="test.php">Test</a>
+        </li>
     </ul>
 </div>
 
