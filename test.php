@@ -1,8 +1,10 @@
 <?php
-phpinfo();
-//require_once 'Services/NaturezaOperacaoService.php';
-//
-//$natureza = new \Services\NaturezaOperacaoService();
-//
-//
-//$natureza->findAll();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require_once 'Services/NaturezaOperacaoService.php';
+
+$natureza = new \Services\NaturezaOperacaoService();
+
+
+$natureza->findAll();
