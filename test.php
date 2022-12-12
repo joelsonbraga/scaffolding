@@ -9,4 +9,6 @@ require_once 'Services/NaturezaOperacaoService.php';
 $natureza = new \Services\NaturezaOperacaoService();
 
 
-$natureza->findAll();
+echo '<pre>';
+print_r($natureza->findAll());
+echo '</pre>';

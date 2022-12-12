@@ -32,10 +32,7 @@ class NaturezaOperacaoService
     {
         try {
 
-            $sql = "SELECT * FROM public.naturezas_operacao ";
-            $sql .= " WHERE 1=1 ";
-            $sql .= "    AND coalesce(deletado, false) = false ";
-            $sql .= " LIMIT 2";
+            $sql = "SELECT * FROM public.paises ";
 
             $rs = $this->db->query($sql);
             $result = $rs->fetchAll(PDO::FETCH_ASSOC);

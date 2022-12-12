@@ -28,7 +28,7 @@ final class ConnectionDatabase
     /**
      * @return PDO|void
      */
-    private function connect()
+    private static function connect()
     {
         try {
             $options = [
@@ -37,10 +37,10 @@ final class ConnectionDatabase
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
             ];
             $string = 'aG9zdD1iZHBsYXRmb3JtLnN5c3RheC5jb20uYnIgcG9ydD01NDMyIGRibmFtZT1TeXN0YXhTUEVEX0Rlc2VudiB1c2VyPXNwZWRAc3BlZDMgcGFzc3dvcmQ9QCQoISV2YmZ5ZWY3NA==';
-
             $dsn = 'pgsql:' . str_replace(' ', ';', base64_decode($string));
 
             $conn = new PDO($dsn, null, null, $options);
+
         } catch(\PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
         }
