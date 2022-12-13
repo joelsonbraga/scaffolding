@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'SystaxPlatformDesenvPHP'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_03EA3B0609264867B99E1A268CC741CE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CFE96E29BBBB4A0F950D4A76B8F9AE1C }}
           package: .
